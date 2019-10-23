@@ -8,8 +8,8 @@
     android:background="#00000000"
     >
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/cursor"
         android:src="@drawable/cursor"
         android:background="#00000000"

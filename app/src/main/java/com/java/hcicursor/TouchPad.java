@@ -72,7 +72,7 @@ public class TouchPad extends Activity{
                         if(dragReady) {
                             isDraging = true;
                             dragReady = false;
-                            CursorMovementManager.cursorDragDown(cursor.getX(), cursor.getY());
+                            CursorMovementManager.cursorDragDown(cursor.getX()+cursor.getWidth(), cursor.getY());
                         }
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -81,8 +81,8 @@ public class TouchPad extends Activity{
                         moveX *=scaleIndex;
                         moveY *= scaleIndex;
 
-                        int viewHeight = cursor.getWidth();
-                        int viewWidth = cursor.getHeight();
+                        int viewWidth = cursor.getWidth();
+                        int viewHeight = cursor.getHeight();
 
                         //X当超出屏幕,取最大值
                         if (cursorX + moveX + viewWidth > width) {
@@ -107,7 +107,7 @@ public class TouchPad extends Activity{
                             cursor.setY(cursorY + moveY);
                         }
                         if(isDraging)
-                            CursorMovementManager.cursorDragMove(cursor.getX(),cursor.getY());
+                            CursorMovementManager.cursorDragMove(cursor.getX()+cursor.getWidth(),cursor.getY());
                         break;
                     case MotionEvent.ACTION_UP:
                         float upX = cursor.getX();
@@ -116,7 +116,7 @@ public class TouchPad extends Activity{
 
                             if(isDraging){
                                 isDraging = false;
-                                CursorMovementManager.cursorDragUp(cursor.getX(),cursor.getY());
+                                CursorMovementManager.cursorDragUp(cursor.getX()+cursor.getWidth(),cursor.getY());
                             }else{
                                 dragReady = true;
                                 Handler handler = new Handler();
@@ -125,7 +125,7 @@ public class TouchPad extends Activity{
                                     public void run() {
                                         if(dragReady){
                                             dragReady = false;
-                                            CursorMovementManager.cursorClick(cursorX, cursorY);
+                                            CursorMovementManager.cursorClick(cursorX+cursor.getWidth(), cursorY);
                                         }
                                     }
                                 }, 300);
