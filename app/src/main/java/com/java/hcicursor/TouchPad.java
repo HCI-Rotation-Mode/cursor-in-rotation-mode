@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +42,7 @@ public class TouchPad extends Activity{
                     case MotionEvent.ACTION_UP:
                         float nowX = motionEvent.getX();
                         float nowY = motionEvent.getY();
-                        if(Math.abs(startX-nowX)>10)
+                        if(Math.abs(startX-nowX)>20)
                             Toast.makeText(TouchPad.this,"single hand mode off",Toast.LENGTH_SHORT).show();
                         finish();
                         break;
@@ -59,6 +60,7 @@ public class TouchPad extends Activity{
         touchView = findViewById(R.id.touch_view);
         touchView.setOnTouchListener(new View.OnTouchListener(){
             private float startX,startY,cursorX,cursorY;
+            private boolean dragReady=false,isDraging = false;
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch(motionEvent.getAction()){
@@ -67,6 +69,11 @@ public class TouchPad extends Activity{
                         startY = motionEvent.getY();
                         cursorX = cursor.getX();
                         cursorY = cursor.getY();
+                        if(dragReady) {
+                            isDraging = true;
+                            dragReady = false;
+                            CursorMovementManager.cursorDragDown(cursor.getX(), cursor.getY());
+                        }
                         break;
                     case MotionEvent.ACTION_MOVE:
                         float moveX = motionEvent.getX() - startX;// event.getX() 移动的X距离
@@ -99,13 +106,33 @@ public class TouchPad extends Activity{
                             //正常
                             cursor.setY(cursorY + moveY);
                         }
+                        if(isDraging)
+                            CursorMovementManager.cursorDragMove(cursor.getX(),cursor.getY());
                         break;
                     case MotionEvent.ACTION_UP:
                         float upX = cursor.getX();
                         float upY = cursor.getY();
-                        //按下时与松手时X值一致的话，就干点别的事情
                         if (Math.abs(cursorX-upX)<10&&Math.abs(cursorY-upY)<10) {
-                            CursorMovementManager.cursorClick(cursorX,cursorY);
+
+                            if(isDraging){
+                                isDraging = false;
+                                CursorMovementManager.cursorDragUp(cursor.getX(),cursor.getY());
+                            }else{
+                                dragReady = true;
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(dragReady){
+                                            dragReady = false;
+                                            CursorMovementManager.cursorClick(cursorX, cursorY);
+                                        }
+                                    }
+                                }, 300);
+                            }
+                        }else{
+                            isDraging = false;
+                            dragReady = false;
                         }
                         break;
                 }

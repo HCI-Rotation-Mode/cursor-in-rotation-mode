@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     ImageView imageView;
     View.OnTouchListener imageViewTouchListener;
     View navView;
-    private float ivDownX,ivDownY;
-    private float downViewX,downViewY;
     Bitmap image1,image2;
     int imageNumber;
 
@@ -62,51 +60,48 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
         final int height = outMetrics.heightPixels;
 
         imageViewTouchListener = new View.OnTouchListener() {
+            private float startX,startY,imageX,imageY;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.e("xtx","TOUCH!!!!");
                 switch (event.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
                         //按下
-                        ivDownX = event.getX();
-                        ivDownY = event.getY();
-                        downViewX = imageView.getX();
-                        downViewY = imageView.getY();
+                        startX = event.getX();
+                        startY = event.getY();
+                        imageX = imageView.getX();
+                        imageY = imageView.getY();
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //移动
                         //移动的距离
-                        float moveX = event.getX() - ivDownX;// event.getX() 移动的X距离
-                        float moveY = event.getY() - ivDownY;// event.getY() 移动的Y距离
-                        //当前view= X,Y坐标
-                        float viewX = imageView.getX();
-                        float viewY = imageView.getY();
+                        float moveX = event.getX() - startX;// event.getX() 移动的X距离
+                        float moveY = event.getY() - startY;// event.getY() 移动的Y距离
                         //view的宽高
                         int viewHeight = imageView.getWidth();
                         int viewWidth = imageView.getHeight();
 
                         //X当超出屏幕,取最大值
-                        if (viewX + moveX + viewWidth > width) {
+                        if (imageX + moveX + viewWidth > width) {
                             //靠右
                             imageView.setX(width - viewWidth);
-                        } else if (viewX + moveX <= 0) {
+                        } else if (imageX + moveX <= 0) {
                             //靠右
                             imageView.setX(0);
                         } else {
                             //正常
-                            imageView.setX(viewX + moveX);
+                            imageView.setX(imageX + moveX);
                         }
                         //Y当超出屏幕,取最大值
-                        if (viewY + moveY + viewHeight > height) {
+                        if (imageY + moveY + viewHeight > height) {
                             //靠下
                             imageView.setY(height - viewHeight);
-                        } else if (viewY + moveY <= 0) {
+                        } else if (imageY + moveY <= 0) {
                             //靠上
                             imageView.setY(0);
                         } else {
                             //正常
-                            imageView.setY(viewY + moveY);
+                            imageView.setY(imageY + moveY);
                         }
                         return true;
 
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                         float upX = imageView.getX();
                         float upY = imageView.getY();
                         //按下时与松手时X值一致的话，就干点别的事情
-                        if (Math.abs(downViewX-upX)<10&&Math.abs(downViewY-upY)<10) {
+                        if (Math.abs(imageX-upX)<10&&Math.abs(imageY-upY)<10) {
                             changeImage();
                         }
                         return true;
@@ -138,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                     case MotionEvent.ACTION_UP:
                         float nowX = motionEvent.getX();
                         float nowY = motionEvent.getY();
-                        if(Math.abs(startX-nowX)>10)
+                        if(Math.abs(startX-nowX)>20)
                             Toast.makeText(MainActivity.this,"single hand mode on",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(MainActivity.this, TouchPad.class));
                         break;
@@ -149,9 +144,8 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     }
     @Override
     public void clickAt(float x,float y){
-        float left = imageView.getLeft(),top = imageView.getTop(),right = imageView.getRight(),bottom=imageView.getBottom();
+        float left = imageView.getX(),top = imageView.getY(),right = left+imageView.getWidth(),bottom=top+imageView.getHeight();
         if(left<=x&&x<=right&&top<=y&&y<=bottom){
-            Log.e("xtx","click at"+x+" "+y);
             final long downTime = SystemClock.uptimeMillis();
             final MotionEvent downEvent = MotionEvent.obtain(
                     downTime, downTime, MotionEvent.ACTION_DOWN, x, y, 0);
@@ -162,5 +156,35 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
             downEvent.recycle();
             upEvent.recycle();
         }
+    }
+
+    @Override
+    public void dragDown(float x, float y) {
+        float left = imageView.getX(),top = imageView.getY(),right = left+imageView.getWidth(),bottom=top+imageView.getHeight();
+        if(left<=x&&x<=right&&top<=y&&y<=bottom){
+            final long startTime = SystemClock.uptimeMillis();
+            final MotionEvent downEvent = MotionEvent.obtain(
+                    startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, x, y, 0);
+            imageViewTouchListener.onTouch(imageView,downEvent);
+            downEvent.recycle();
+        }
+    }
+
+    @Override
+    public void dragMove(float x, float y) {
+        final long startTime = SystemClock.uptimeMillis();
+        final MotionEvent moveEvent = MotionEvent.obtain(
+                startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, x, y, 0);
+        imageViewTouchListener.onTouch(imageView,moveEvent);
+        moveEvent.recycle();
+    }
+
+    @Override
+    public void dragUp(float x, float y) {
+        final long startTime = SystemClock.uptimeMillis();
+        final MotionEvent upEvent = MotionEvent.obtain(
+                startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, x, y, 0);
+        imageViewTouchListener.onTouch(imageView,upEvent);
+        upEvent.recycle();
     }
 }
