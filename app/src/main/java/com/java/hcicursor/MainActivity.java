@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 touchListener.onTouch(imageView[nowIndex], upEvent);
                 downEvent.recycle();
                 upEvent.recycle();
+                break;
             }
         }
     }
