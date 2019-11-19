@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     private float scaleIndex = 2.0f;
     private float rCircle;
     private float RCircle;
+    private int imViewNum = 2;
 
-    imView[] imageView = new imView[2];
+    imView[] imageView = new imView[imViewNum];
     View.OnTouchListener imageViewTouchListenerHand,imageViewTouchListenerCursor,touchListener;
     View navView;
 
@@ -238,37 +239,36 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     }
     @Override
     public void clickAt(float x,float y){
-        int nowIndex = 0;
-        for (ImageView iv:imageView){
-            float left = iv.getX(),top = iv.getY(),right = left+iv.getWidth(),bottom=top+iv.getHeight();
-            if(left<=x&&x<=right&&top<=y&&y<=bottom){
+        for(int nowIndex = imViewNum-1; nowIndex >= 0; --nowIndex) {
+            float left = imageView[nowIndex].getX(), top = imageView[nowIndex].getY();
+            float right = left + imageView[nowIndex].getWidth(), bottom = top + imageView[nowIndex].getHeight();
+            if (left <= x && x <= right && top <= y && y <= bottom) {
                 final long downTime = SystemClock.uptimeMillis();
                 final MotionEvent downEvent = MotionEvent.obtain(
                         downTime, downTime, MotionEvent.ACTION_DOWN, x, y, 0);
                 final MotionEvent upEvent = MotionEvent.obtain(
                         downTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, x, y, 0);
-                touchListener.onTouch(iv,downEvent);
-                touchListener.onTouch(iv,upEvent);
+                touchListener.onTouch(imageView[nowIndex], downEvent);
+                touchListener.onTouch(imageView[nowIndex], upEvent);
                 downEvent.recycle();
                 upEvent.recycle();
             }
-            nowIndex++;
         }
     }
 
     @Override
     public int dragDown(float x, float y) {
-        int nowIndex = 0;
-        for(ImageView iv: imageView){
-            float left = iv.getX(),top = iv.getY(),right = left+iv.getWidth(),bottom=top+iv.getHeight();
+        for(int nowIndex = imViewNum-1; nowIndex >= 0; --nowIndex){
+            float left = imageView[nowIndex].getX(),top = imageView[nowIndex].getY();
+            float right = left+imageView[nowIndex].getWidth(),bottom=top+imageView[nowIndex].getHeight();
             if(left<=x&&x<=right&&top<=y&&y<=bottom){
                 final long startTime = SystemClock.uptimeMillis();
                 final MotionEvent downEvent = MotionEvent.obtain(
                         startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, x, y, 0);
-                touchListener.onTouch(iv,downEvent);
+                touchListener.onTouch(imageView[nowIndex],downEvent);
                 downEvent.recycle();
                 return nowIndex;
-            }nowIndex++;
+            }
         }return -1;
     }
 
