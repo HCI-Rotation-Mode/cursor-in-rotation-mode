@@ -42,10 +42,11 @@ public class TouchPad extends Activity{
                     case MotionEvent.ACTION_UP:
                         float nowX = motionEvent.getX();
                         float nowY = motionEvent.getY();
-                        if(Math.abs(startX-nowX)>20)
-                            Toast.makeText(TouchPad.this,"single hand mode off",Toast.LENGTH_SHORT).show();
-                        finish();
-                        break;
+                        if(Math.abs(startX-nowX)>20) {
+                            Toast.makeText(TouchPad.this, "single hand mode off", Toast.LENGTH_SHORT).show();
+                            finish();
+                            break;
+                        }
                 }
                 return true;
             }

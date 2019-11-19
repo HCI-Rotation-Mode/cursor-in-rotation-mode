@@ -306,8 +306,9 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        switch(resultCode){
+        switch(requestCode){
             case 1:
+                Log.d("xtx", "onActivityResult!");
                 setImageViewTouchListener(imageViewTouchListenerHand);
                 break;
             default:
