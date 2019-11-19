@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.util.Log;
 
 public class TouchPad extends Activity{
 
@@ -113,7 +114,6 @@ public class TouchPad extends Activity{
                         float upX = cursor.getX();
                         float upY = cursor.getY();
                         if (Math.abs(cursorX-upX)<10&&Math.abs(cursorY-upY)<10) {
-
                             if(isDraging){
                                 isDraging = false;
                                 CursorMovementManager.cursorDragUp(cursor.getX()+cursor.getWidth(),cursor.getY());

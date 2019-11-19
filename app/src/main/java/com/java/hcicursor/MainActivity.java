@@ -265,15 +265,17 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     }
 
     @Override
-    public void dragDown(float x, float y) {
+    public boolean dragDown(float x, float y) {
         float left = imageView.getX(),top = imageView.getY(),right = left+imageView.getWidth(),bottom=top+imageView.getHeight();
         if(left<=x&&x<=right&&top<=y&&y<=bottom){
+            Log.d("xtx", "dragDown successfully!");
             final long startTime = SystemClock.uptimeMillis();
             final MotionEvent downEvent = MotionEvent.obtain(
                     startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, x, y, 0);
             touchListener.onTouch(imageView,downEvent);
             downEvent.recycle();
-        }
+            return true;
+        }return false;
     }
 
     @Override
