@@ -20,8 +20,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements CursorMovementListener{
 
-    private float scaleIndex = 2.5f;
+    private float scaleIndex = 1.5f;
     private float rCircle;
+    private float RCircle;
 
     ImageView imageView;
     View.OnTouchListener imageViewTouchListenerHand,imageViewTouchListenerCursor,touchListener;
@@ -46,9 +47,22 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     }
 
     private float getDistance(float x, float y, float nx, float ny){
-        float x_dis = x-nx;
-        float y_dis = y-ny;
-        return (float)(Math.sqrt(x_dis*x_dis+y_dis*y_dis));
+        float xDis = x-nx;
+        float yDis = y-ny;
+        return (float)(Math.sqrt(xDis*xDis+yDis*yDis));
+    }
+
+    private float scaleFunction(float distance){
+        /*
+        一些要考虑的问题:
+            1、移动速度随着离组件的距离缩小而增加
+            2、当离组件距离缩小到一定程度之后移动速度应当降低
+            3、不能设计过于复杂的函数会影响性能和交互体验
+            4、目前的实现只适合单组件，多组件的求解不太好设计
+         */
+        Log.d("ad", String.format("distance %f RCircle %f rCircle %f", distance, RCircle, rCircle));
+        if(distance > rCircle)return scaleIndex*(2.0f-distance/RCircle);
+        else return scaleIndex*(2.0f-rCircle/RCircle)*(0.5f+0.5f*distance/rCircle);
     }
 
     void setImageViewTouchListener(View.OnTouchListener touchListener){
@@ -76,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
         wm.getDefaultDisplay().getMetrics(outMetrics);
         final float width = outMetrics.widthPixels;
         final float height = outMetrics.heightPixels;
-        rCircle = Math.max(width, height);
+        RCircle = Math.max(width, height);
 
         imageViewTouchListenerCursor = new View.OnTouchListener() {
 
@@ -282,9 +296,9 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     @Override
     public float getScaleIndex(float x, float y, boolean isDragging){
         float centerX = imageView.getX()+imageView.getWidth()/2.0f;
-        float centerY = imageView.getX()+imageView.getHeight()/2.0f;
+        float centerY = imageView.getY()+imageView.getHeight()/2.0f;
         float distance = getDistance(x, y, centerX, centerY);
-        if(isDragging)return scaleIndex * (1.0f + 1.5f*distance / rCircle);
+        if(!isDragging)return scaleFunction(distance);
         else return scaleIndex;
     }
 
@@ -298,4 +312,12 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 break;
         }
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        rCircle = Math.min(imageView.getWidth(), imageView.getHeight());
+        Log.d("ad", String.format("rCircle %f", rCircle));
+    }
+
 }
