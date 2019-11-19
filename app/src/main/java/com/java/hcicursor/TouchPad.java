@@ -18,7 +18,6 @@ public class TouchPad extends Activity{
 
     View navView,touchView;
     ImageView cursor;
-    private float scaleIndex = 2.0f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +27,8 @@ public class TouchPad extends Activity{
         setContentView(R.layout.activity_touch_pad);
 
         cursor = findViewById(R.id.cursor);
-
         navView = findViewById(R.id.nav_view);
+
         navView.setOnTouchListener(new View.OnTouchListener() {
             private float startX,startY;
             @Override
@@ -78,8 +77,9 @@ public class TouchPad extends Activity{
                     case MotionEvent.ACTION_MOVE:
                         float moveX = motionEvent.getX() - startX;// event.getX() 移动的X距离
                         float moveY = motionEvent.getY() - startY;// event.getY() 移动的Y距离
-                        moveX *=scaleIndex;
-                        moveY *= scaleIndex;
+                        float nowScaleIndex = CursorMovementManager.cursorAskScaleIndex(cursor.getX(), cursor.getY(), isDraging);
+                        moveX *= nowScaleIndex;
+                        moveY *= nowScaleIndex;
 
                         int viewWidth = cursor.getWidth();
                         int viewHeight = cursor.getHeight();

@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements CursorMovementListener{
 
+    private float scaleIndex = 2.5f;
+    private float rCircle;
+
     ImageView imageView;
     View.OnTouchListener imageViewTouchListenerHand,imageViewTouchListenerCursor,touchListener;
     View navView;
@@ -42,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
         }
     }
 
+    private float getDistance(float x, float y, float nx, float ny){
+        float x_dis = x-nx;
+        float y_dis = y-ny;
+        return (float)(Math.sqrt(x_dis*x_dis+y_dis*y_dis));
+    }
+
     void setImageViewTouchListener(View.OnTouchListener touchListener){
         imageView.setOnTouchListener(touchListener);
         this.touchListener = touchListener;
@@ -58,15 +67,16 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
         imageView = findViewById(R.id.iv_onTouch);
         navView = findViewById(R.id.nav_view);
         imageNumber = 1;
-        image1 = BitmapFactory.decodeResource(getResources(),R.drawable.yao);
-        image2 = BitmapFactory.decodeResource(getResources(),R.drawable.zhang);
+        image1 = BitmapFactory.decodeResource(getResources(),R.drawable.poker);
+        image2 = BitmapFactory.decodeResource(getResources(),R.drawable.poker_clicked);
         imageView.setImageBitmap(image1);
         //获取屏幕宽度
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
-        final int width = outMetrics.widthPixels;
-        final int height = outMetrics.heightPixels;
+        final float width = outMetrics.widthPixels;
+        final float height = outMetrics.heightPixels;
+        rCircle = Math.max(width, height);
 
         imageViewTouchListenerCursor = new View.OnTouchListener() {
 
@@ -267,6 +277,15 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
         final MotionEvent upEvent = MotionEvent.obtain(startTime, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, x, y, 0);
         touchListener.onTouch(imageView,upEvent);
         upEvent.recycle();
+    }
+
+    @Override
+    public float getScaleIndex(float x, float y, boolean isDragging){
+        float centerX = imageView.getX()+imageView.getWidth()/2.0f;
+        float centerY = imageView.getX()+imageView.getHeight()/2.0f;
+        float distance = getDistance(x, y, centerX, centerY);
+        if(isDragging)return scaleIndex * (1.0f + 1.5f*distance / rCircle);
+        else return scaleIndex;
     }
 
     @Override

@@ -23,4 +23,8 @@ public class CursorMovementManager {
         Log.d("xtx",String.format("cursor drag %f,%f<------",x,y));
         cursorMovementListener.dragMove(x,y);
     }
+    public static float cursorAskScaleIndex(float x, float y, boolean isDragging){
+        Log.d("xtx", String.format("cursor pos %f %f", x, y));
+        return cursorMovementListener.getScaleIndex(x, y, isDragging);
+    }
 }
