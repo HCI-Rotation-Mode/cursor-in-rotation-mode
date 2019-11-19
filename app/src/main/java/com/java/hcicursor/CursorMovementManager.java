@@ -5,7 +5,7 @@ import android.view.View;
 
 public class CursorMovementManager {
     private static CursorMovementListener cursorMovementListener;
-    private static boolean isDragging;
+    private static int draggingIndex = -1;
     public static void setCursorMovementListener(CursorMovementListener cMM){
         cursorMovementListener = cMM;
     }
@@ -14,21 +14,18 @@ public class CursorMovementManager {
         Log.d("xtx",String.format("cursor clickAt %f,%f",x,y));
     }
     public static void cursorDragDown(float x,float y){
-        isDragging = cursorMovementListener.dragDown(x, y);
-        if(isDragging)Log.d("xtx",String.format("cursor drag %f,%f----->",x,y));
+        draggingIndex = cursorMovementListener.dragDown(x, y);
+        if(draggingIndex != -1)Log.d("xtx",String.format("cursor drag %f,%f----->",x,y));
     }
     public static void cursorDragUp(float x,float y){
-        if(isDragging){
-            Log.d("xtx",String.format("cursor drag %f,%f",x,y));
-            cursorMovementListener.dragUp(x,y);
-            isDragging = false;
-        }
+        if(draggingIndex != -1)Log.d("xtx",String.format("cursor drag %f,%f",x,y));
+        cursorMovementListener.dragUp(x, y, draggingIndex);
+        draggingIndex = -1;
     }
     public static void cursorDragMove(float x,float y){
-        if(isDragging){
-            Log.d("xtx",String.format("cursor drag %f,%f<------",x,y));
-            cursorMovementListener.dragMove(x,y);
-        }
+        if(draggingIndex != -1)Log.d("xtx",String.format("cursor drag %f,%f<------",x,y));
+        cursorMovementListener.dragMove(x, y, draggingIndex);
+
     }
     public static float cursorAskScaleIndex(float x, float y, boolean isDragging){
         float ans = cursorMovementListener.getScaleIndex(x, y, isDragging);

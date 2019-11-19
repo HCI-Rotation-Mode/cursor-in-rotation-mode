@@ -128,7 +128,7 @@ public class TouchPad extends Activity{
                                             CursorMovementManager.cursorClick(cursorX+cursor.getWidth(), cursorY);
                                         }
                                     }
-                                }, 300);
+                                }, 200);
                             }
                         }else{
                             isDraging = false;
