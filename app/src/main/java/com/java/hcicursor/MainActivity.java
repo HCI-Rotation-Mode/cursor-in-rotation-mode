@@ -15,8 +15,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CursorMovementListener{
 
@@ -236,6 +241,20 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 return true;
             }
         });
+        Button button = findViewById(R.id.fittLawOpen);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,FittLawActivity.class));
+            }
+        });
+        /*Intent intent = new Intent(MainActivity.this,ResultActivity.class);
+        List<ResultBean> resultList = new ArrayList<>();
+        resultList.add(new ResultBean(0.2f,0.5f,1011,true));
+        resultList.add(new ResultBean(0.2f,0.5f,1011,false));
+        resultList.add(new ResultBean(0.2f,0.5f,1011,false));
+        intent.putExtra("result",(Serializable)resultList);
+        startActivity(intent);*/
     }
     @Override
     public void clickAt(float x,float y){

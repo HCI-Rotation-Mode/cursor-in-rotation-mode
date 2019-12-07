@@ -8,15 +8,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".TouchPad" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <activity android:name=".FittLawActivity"
+            android:theme="@style/FullScreen"></activity>
+        <activity android:name=".ResultActivity"
+            android:theme="@style/FullScreen">
+
+            <!--
+            intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter
+            -->
+        </activity>
+        <activity
+            android:name=".TouchPad"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="com.java.hcicursor.CURSORMOVEMENT"/>
-                <category android:name="com.java.hcicursor.CLICK"/>
+                <action android:name="com.java.hcicursor.CURSORMOVEMENT" />
+
+                <category android:name="com.java.hcicursor.CLICK" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:theme="@style/FullScreen">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
