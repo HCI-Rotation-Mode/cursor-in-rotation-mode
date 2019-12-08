@@ -154,8 +154,8 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
 
         upBar.setX(0);
         downBar.setX(0);
-        upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance+parameters.get(paramPos).width));
-        downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance+parameters.get(paramPos).width));
+        upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance-parameters.get(paramPos).width));
+        downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance-parameters.get(paramPos).width));
 
         switch(state){
             case STATE_IDLE:
