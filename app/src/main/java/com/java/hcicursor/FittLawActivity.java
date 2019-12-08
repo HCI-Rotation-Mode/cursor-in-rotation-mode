@@ -8,12 +8,14 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.sql.Array;
@@ -37,7 +39,10 @@ class Parameters{
     }
 }
 
-public class FittLawActivity extends AppCompatActivity {
+public class FittLawActivity extends AppCompatActivity implements CursorMovementListener{
+
+
+    private float scaleIndex = 2.0f;
 
     List<Float> widths = new ArrayList<Float>(){{
         //add(50f); //单位:px
@@ -67,6 +72,9 @@ public class FittLawActivity extends AppCompatActivity {
     int screenWidth,screenHeight;
     long lastClickTime;
     List<ResultBean> results = new ArrayList<>();
+
+    View.OnClickListener upBarListener,downBarListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +94,7 @@ public class FittLawActivity extends AppCompatActivity {
         screenHeight = point.y;
         state = STATE.STATE_IDLE;
         refreshBars();
-        upBar.setOnClickListener(new View.OnClickListener() {
+        upBarListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(state == STATE.STATE_UP||state == STATE.STATE_IDLE)
@@ -94,14 +102,41 @@ public class FittLawActivity extends AppCompatActivity {
                 else
                     click(true);
             }
-        });
-        downBar.setOnClickListener(new View.OnClickListener() {
+        };
+        upBar.setOnClickListener(upBarListener);
+        downBarListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(state == STATE.STATE_DOWN)
                     click(false);
                 else
                     click(true);
+            }
+        };
+        downBar.setOnClickListener(downBarListener);
+
+        CursorMovementManager.setCursorMovementListener(this);
+        View nav_view = findViewById(R.id.nav_view);
+        nav_view.setOnTouchListener(new View.OnTouchListener() {
+            private float startX,startY;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        startX = motionEvent.getX();
+                        startY = motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float nowX = motionEvent.getX();
+                        float nowY = motionEvent.getY();
+                        if(Math.abs(startX-nowX)>20) {
+                            Toast.makeText(FittLawActivity.this, "single hand mode on", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FittLawActivity.this, TouchPad.class);
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return true;
             }
         });
     }
@@ -175,10 +210,34 @@ public class FittLawActivity extends AppCompatActivity {
         }
         //Log.e("xtx",state.toString());
     }
-
     @Override
     public boolean onTouchEvent (MotionEvent event) {
         click(true);
         return true;
+    }
+    public void clickAt(float x,float y){
+
+        float left = upBar.getX(), top = upBar.getY();
+        float right = left + upBar.getWidth(), bottom = top + upBar.getHeight();
+        if (left <= x && x <= right && top <= y && y <= bottom) {
+            upBarListener.onClick(upBar);
+            return;
+        }
+
+        left = downBar.getX(); top = downBar.getY();
+        right = left + downBar.getWidth(); bottom = top + downBar.getHeight();
+        if (left <= x && x <= right && top <= y && y <= bottom) {
+            downBarListener.onClick(downBar);
+            return;
+        }
+        click(true);
+    }
+    public int dragDown(float x,float y){
+        return -1;
+    }
+    public void dragMove(float x,float y, int index){}
+    public void dragUp(float x,float y, int index){}
+    public float getScaleIndex(float x, float y, boolean isDragging){
+        return this.scaleIndex;
     }
 }
