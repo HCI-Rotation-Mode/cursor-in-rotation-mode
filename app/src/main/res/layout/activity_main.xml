@@ -40,6 +40,18 @@
         android:id="@+id/fittLawOpen"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:id="@+id/MoveLawOpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="1dp"
+        android:text="拖动实验"
+        android:textSize="20dp" />
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

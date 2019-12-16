@@ -248,6 +248,13 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 startActivity(new Intent(MainActivity.this,FittLawActivity.class));
             }
         });
+        Button button_move = findViewById(R.id.MoveLawOpen);
+        button_move.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(MainActivity.this, MoveLawActivity.class));
+            }
+        });
         /*Intent intent = new Intent(MainActivity.this,ResultActivity.class);
         List<ResultBean> resultList = new ArrayList<>();
         resultList.add(new ResultBean(0.2f,0.5f,1011,true));

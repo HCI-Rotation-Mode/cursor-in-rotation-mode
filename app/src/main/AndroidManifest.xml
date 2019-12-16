@@ -8,6 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity android:name=".MoveLawActivity"
+            android:theme="@style/FullScreen"/>
         <activity android:name=".FittLawActivity"
             android:theme="@style/FullScreen"></activity>
         <activity android:name=".ResultActivity"

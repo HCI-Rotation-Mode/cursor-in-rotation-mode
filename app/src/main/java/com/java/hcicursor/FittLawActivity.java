@@ -84,9 +84,11 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
         RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);
         relativeLayout.addView(upBar);
         relativeLayout.addView(downBar);
-        for(Float w : widths)
-            for(Float d:distances)
-                parameters.add(new Parameters(w,d));
+        for(Float w : widths) {
+            for (Float d : distances) {
+                parameters.add(new Parameters(w, d));
+            }
+        }
         Display display = getWindowManager().getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);

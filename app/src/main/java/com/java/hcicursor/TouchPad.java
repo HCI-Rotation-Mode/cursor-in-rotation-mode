@@ -134,6 +134,7 @@ public class TouchPad extends Activity{
                         }else{
                             isDraging = false;
                             dragReady = false;
+                            CursorMovementManager.cursorDragUp(cursor.getX()+cursor.getWidth(),cursor.getY());
                         }
                         break;
                 }
