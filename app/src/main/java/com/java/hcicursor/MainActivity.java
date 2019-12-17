@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
     View.OnTouchListener imageViewTouchListenerHand,imageViewTouchListenerCursor,touchListener;
     View navView;
 
+    private Button button,button_move;
+
     /*private void changeImage(){
         imageNumber[curIndex] = (imageNumber[curIndex]^1);
         imageView[curIndex].setImageBitmap(image[imageNumber[curIndex]]);
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
 
     void setImageViewTouchListener(View.OnTouchListener touchListener){
         for (imView iv : imageView)iv.setOnTouchListener(touchListener);
+        //button.setOnTouchListener(touchListener);
+        //button_move.setOnTouchListener(touchListener);
         this.touchListener = touchListener;
     }
 
@@ -217,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 return false;
             }
         };
-        setImageViewTouchListener(imageViewTouchListenerHand);
         navView.setOnTouchListener(new View.OnTouchListener() {
             private float startX,startY;
             @Override
@@ -241,20 +244,21 @@ public class MainActivity extends AppCompatActivity implements CursorMovementLis
                 return true;
             }
         });
-        Button button = findViewById(R.id.fittLawOpen);
+        button = findViewById(R.id.fittLawOpen);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,FittLawActivity.class));
             }
         });
-        Button button_move = findViewById(R.id.MoveLawOpen);
+        button_move = findViewById(R.id.MoveLawOpen);
         button_move.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 startActivity(new Intent(MainActivity.this, MoveLawActivity.class));
             }
         });
+        setImageViewTouchListener(imageViewTouchListenerHand);
         /*Intent intent = new Intent(MainActivity.this,ResultActivity.class);
         List<ResultBean> resultList = new ArrayList<>();
         resultList.add(new ResultBean(0.2f,0.5f,1011,true));

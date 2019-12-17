@@ -33,8 +33,8 @@ class para{
 
 public class MoveLawActivity extends AppCompatActivity implements CursorMovementListener {
 
-    private float scaleIndex = 2.0f;
-    private float stX = 1800.0f;
+    private float scaleIndex = 3.0f;
+    private float stX = 1650.0f;
 
     List<Float> Rs = new ArrayList<Float>(){{
        //add(50f);

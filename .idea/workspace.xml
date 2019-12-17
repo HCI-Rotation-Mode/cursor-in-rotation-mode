@@ -15,12 +15,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MoveLawActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MoveLawActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6240">
-              <caret line="333" column="4" selection-start-line="333" selection-start-column="4" selection-end-line="343" selection-end-column="5" />
+            <state relative-caret-position="-1566">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,13 +75,17 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+            <state relative-caret-position="240">
+              <caret line="219" column="24" selection-start-line="219" selection-start-column="24" selection-end-line="219" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2645#2923#0" expanded="true" />
+                <element signature="e#2922#2923#0" expanded="true" />
+                <element signature="e#3000#3253#0" expanded="true" />
+                <element signature="e#3252#3253#0" expanded="true" />
                 <element signature="e#8013#8014#0" expanded="true" />
                 <element signature="e#8038#8039#0" expanded="true" />
                 <element signature="e#8216#8217#0" expanded="true" />
@@ -92,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MoveLawActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="311" column="89" selection-start-line="311" selection-start-column="89" selection-end-line="311" selection-end-column="89" />
+            <state relative-caret-position="346">
+              <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -179,12 +182,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/ResultActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_fitt_law.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/TouchPad.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_move_law.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MoveLawActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java" />
       </list>
     </option>
   </component>
@@ -431,7 +434,7 @@
       <window_info id="Captures" order="8" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="9" visible="true" weight="0.1795422" />
       <window_info anchor="bottom" id="Find" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.66024095" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.036144577" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32891566" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32771084" />
@@ -439,7 +442,7 @@
       <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.036144577" />
       <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="9" weight="0.2879518" />
+      <window_info anchor="bottom" id="Run" order="9" weight="0.28674698" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Gradle" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
@@ -619,16 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6240">
-          <caret line="333" column="4" selection-start-line="333" selection-start-column="4" selection-end-line="343" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/TouchPad.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2460">
@@ -662,26 +655,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        <state relative-caret-position="-1566">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8013#8014#0" expanded="true" />
-            <element signature="e#8038#8039#0" expanded="true" />
-            <element signature="e#8216#8217#0" expanded="true" />
-            <element signature="e#8254#8255#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/MoveLawActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="311" column="89" selection-start-line="311" selection-start-column="89" selection-end-line="311" selection-end-column="89" />
+        <state relative-caret-position="346">
+          <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/java/hcicursor/FittLawActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="219" column="24" selection-start-line="219" selection-start-column="24" selection-end-line="219" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2645#2923#0" expanded="true" />
+            <element signature="e#2922#2923#0" expanded="true" />
+            <element signature="e#3000#3253#0" expanded="true" />
+            <element signature="e#3252#3253#0" expanded="true" />
+            <element signature="e#8013#8014#0" expanded="true" />
+            <element signature="e#8038#8039#0" expanded="true" />
+            <element signature="e#8216#8217#0" expanded="true" />
+            <element signature="e#8254#8255#0" expanded="true" />
           </folding>
         </state>
       </provider>

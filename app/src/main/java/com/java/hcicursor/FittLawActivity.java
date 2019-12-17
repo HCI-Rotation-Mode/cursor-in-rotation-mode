@@ -43,9 +43,10 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
 
 
     private float scaleIndex = 2.0f;
+    private float offset = 0.0f;
 
     List<Float> widths = new ArrayList<Float>(){{
-        //add(50f); //单位:px
+        add(50f); //单位:px
         add(100f);
         add(200f);
     }};
@@ -56,7 +57,7 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
         //add(800f);
     }};
 
-    int repeatTime = 5; //10次有效点击数
+    int repeatTime = 10; //10次有效点击数
 
     List<Parameters> parameters= new ArrayList<>();
     int paramPos = 0; //该使用paramPos个参数组合了
@@ -156,8 +157,9 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
 
         upBar.setX(0);
         downBar.setX(0);
-        upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance-parameters.get(paramPos).width));
-        downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance-parameters.get(paramPos).width));
+        offset = 0.5f*parameters.get(paramPos).distance-50;
+        upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
+        downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
 
         switch(state){
             case STATE_IDLE:
@@ -214,7 +216,9 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
     }
     @Override
     public boolean onTouchEvent (MotionEvent event) {
-        //click(true);
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            click(true);
+        }
         return true;
     }
     public void clickAt(float x,float y){
