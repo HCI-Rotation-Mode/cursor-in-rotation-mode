@@ -34,20 +34,28 @@ class para{
 public class MoveLawActivity extends AppCompatActivity implements CursorMovementListener {
 
     private float scaleIndex = 2.0f;
+    private float stX = 1800.0f;
 
     List<Float> Rs = new ArrayList<Float>(){{
-       add(50f);
+       //add(50f);
        add(75f);
-       add(100f);
+       //add(100f);
     }};
 
     List<Float> diss = new ArrayList<Float>(){{
-        add(450f);
+        add(100f);
+        add(200f);
+        add(300f);
+        add(400f);
+        add(500f);
         add(600f);
+        add(700f);
+        add(800f);
+        add(900f);
     }};
 
     private int repeatTime = 3;
-    private float checkR;
+    private float checkHeight;
     private List<para> Para= new ArrayList<>();
     private int paramPos = 0; //该使用paramPos个参数组合了
     private int validTime = 0;//在当前的参数组合下，已经获得了validTime次合法点击
@@ -95,7 +103,9 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
         display.getSize(point);
         screenHeight = point.y;
         screenWidth = point.x;
-        state = 0;
+
+        validTime = 0;
+        paramPos = 0;
 
         modeInit();
 
@@ -152,8 +162,9 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
                         //松手
                         float upX = v.getX();
                         float upY = v.getY();
-                        if(getDis(upX, upY, dstX, dstY) < checkR)modeChange(true);
-                        else modeChange(false);
+                        //if(getDis(upX, upY, dstX, dstY) < checkR)modeChange(true);
+                        //else modeChange(false);
+                        modeChange(upX, upY);
                         return true;
                 }
 
@@ -212,8 +223,9 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
                         //松手
                         float upX = v.getX();
                         float upY = v.getY();
-                        if(getDis(upX, upY, dstX, dstY) < checkR)modeChange(true);
-                        else modeChange(false);
+                        //if(getDis(upX, upY, dstX, dstY) < checkR)modeChange(true);
+                        //else modeChange(false);
+                        modeChange(upX, upY);
                         Log.d("up",String.format("%f,%f",event.getX(),event.getY()));
                         return true;
                 }
@@ -253,23 +265,24 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
     void modeInit(){
         float R = Para.get(paramPos).R;
         float dis = Para.get(paramPos).dis;
-        RelativeLayout.LayoutParams pars = (RelativeLayout.LayoutParams) dst.getLayoutParams();
+        RelativeLayout.LayoutParams pars = (RelativeLayout.LayoutParams) src.getLayoutParams();
         pars.width = pars.height = (((int) R) << 1);
         dst.setLayoutParams(pars);
         src.setLayoutParams(pars);
-        dst.setX(screenWidth * 0.5f - R);
-        dst.setY(screenHeight * 0.5f - 0.5f * dis - R);
-        src.setX(screenWidth * 0.5f - R);
-        src.setY(screenHeight * 0.5f + 0.5f * dis + R);
-        dstX = screenWidth * 0.5f - R;
-        dstY = screenHeight * 0.5f - 0.5f * dis - R;
-        dst.setBackgroundColor(notactiveColor);
+        //dst.setX(screenWidth * 0.5f - R);
+        //dst.setY(screenHeight * 0.5f - 0.5f * dis - R);
+        src.setX(dis);
+        src.setY(stX);
+        //dstX = screenWidth * 0.5f - R;
+        //dstY = screenHeight * 0.5f - 0.5f * dis - R;
+        //dst.setBackgroundColor(notactiveColor);
         src.setBackgroundColor(idleColor);
-        checkR = 0.4f * R;
+        //checkR = 0.4f * R;
+        checkHeight = dis;
         Log.d("ad","checkR");
     }
 
-    void posChange(int state){
+    /*void posChange(int state){
         Log.d("ad", "posChange!");
         src.setBackgroundColor(activeColor);
         src.setBackgroundColor(activeColor);
@@ -290,11 +303,28 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
             dstX = screenWidth*0.5f - R;
             dstY = screenHeight * 0.5f - 0.5f * dis - R;
         }return;
-    }
+    }*/
 
-    void modeChange(boolean isCorrect){
+    void modeChange(float upX, float upY){
         Log.d("ad", "modeChange!");
-        if(state == 0){
+        if(checkHeight+100 > upX && checkHeight-100 < upX) {
+            validTime++;
+            results.add(new ResultBean(Para.get(paramPos).R, Para.get(paramPos).dis, stX-upY, true));
+            if (validTime == repeatTime) {
+                validTime = 0;
+                paramPos++;
+                if (paramPos < Para.size()) modeInit();
+                else {
+                    paramPos = 0;
+                    Intent intent = new Intent(MoveLawActivity.this, ResultActivity.class);
+                    intent.putExtra("result", (Serializable) results);
+                    startActivity(intent);
+                    results.clear();
+                }
+            } else modeInit();
+        }else modeInit();
+
+        /*if(state == 0){
             if(!isCorrect){
                 modeInit();
                 Log.d("ad", "???");
@@ -327,7 +357,7 @@ public class MoveLawActivity extends AppCompatActivity implements CursorMovement
             //Log.e("xtx-here",state.toString());
             posChange(state);
             lastTime = System.currentTimeMillis();
-        }
+        }*/
     }
 
     public void clickAt(float x,float y){return;}

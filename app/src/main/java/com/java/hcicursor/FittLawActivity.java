@@ -48,15 +48,15 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
         //add(50f); //单位:px
         add(100f);
         add(200f);
-        add(300f);
     }};
     List<Float> distances = new ArrayList<Float>(){{
-        add(450f); //单位:px
+        add(300f); //单位:px
         add(600f);
+        add(900f);
         //add(800f);
     }};
 
-    int repeatTime = 3; //10次有效点击数
+    int repeatTime = 5; //10次有效点击数
 
     List<Parameters> parameters= new ArrayList<>();
     int paramPos = 0; //该使用paramPos个参数组合了
@@ -214,7 +214,7 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
     }
     @Override
     public boolean onTouchEvent (MotionEvent event) {
-        click(true);
+        //click(true);
         return true;
     }
     public void clickAt(float x,float y){
