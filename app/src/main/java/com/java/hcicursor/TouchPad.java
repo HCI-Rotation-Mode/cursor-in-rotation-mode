@@ -135,6 +135,15 @@ public class TouchPad extends Activity{
                             isDraging = false;
                             dragReady = false;
                             CursorMovementManager.cursorDragUp(cursor.getX()+cursor.getWidth(),cursor.getY());
+                            Pair cursorPos = new Pair();
+                            cursorPos.x = cursor.getX();
+                            cursorPos.y = cursor.getY();
+                            cursorPos = MagnetManager.magnetTo(cursorPos);
+                            //if(MagnetManager.magnetTo(c))
+                            if(cursorPos!=null){
+                                cursor.setX(cursorPos.x);
+                                cursor.setY(cursorPos.y);
+                            }
                         }
                         break;
                 }

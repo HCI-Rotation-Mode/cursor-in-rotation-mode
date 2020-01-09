@@ -39,7 +39,7 @@ class Parameters{
     }
 }
 
-public class FittLawActivity extends AppCompatActivity implements CursorMovementListener{
+public class FittLawActivity extends AppCompatActivity implements CursorMovementListener,MagnetListener{
 
 
     private float scaleIndex = 2.0f;
@@ -76,9 +76,34 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
 
     View.OnClickListener upBarListener,downBarListener;
 
+
+    public Pair magnetTo(Pair cursorPos){
+        //upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
+        //downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
+        float downU = downBar.getY()+downBar.getHeight()*0.5f+0.4f*parameters.get(paramPos).distance;
+        float downD = downBar.getY()+downBar.getHeight()*0.5f-0.4f*parameters.get(paramPos).distance;
+        float upU = upBar.getY()+upBar.getHeight()*0.5f+0.4f*parameters.get(paramPos).distance;
+        float upD = upBar.getY()+upBar.getHeight()*0.5f-0.4f*parameters.get(paramPos).distance;
+        //float downU = 0.5f*(screenHeight-parameters.get(paramPos).distance) + 0.4f * parameters.get(paramPos).distance + offset ;
+        //float downD = 0.5f*(screenHeight-parameters.get(paramPos).distance) - 0.4f * parameters.get(paramPos).distance + offset ;
+        //float upU = 0.5f*(screenHeight+parameters.get(paramPos).distance) + 0.4f * parameters.get(paramPos).distance + offset ;
+        //float upD = 0.5f*(screenHeight+parameters.get(paramPos).distance) - 0.4f * parameters.get(paramPos).distance + offset ;
+        if(downD <= cursorPos.y && cursorPos.y <= downU){
+            cursorPos.y = downBar.getY()+downBar.getHeight()*0.5f;
+            return cursorPos;
+        }
+        if(upD <= cursorPos.y && cursorPos.y <= upU){
+            cursorPos.y = upBar.getY()+upBar.getHeight()*0.5f;
+            return cursorPos;
+        }
+        return null;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MagnetManager.setMagnetListener(this);
         setContentView(R.layout.activity_fitt_law);
         upBar = new View(this);
         downBar = new View(this);
@@ -157,7 +182,7 @@ public class FittLawActivity extends AppCompatActivity implements CursorMovement
 
         upBar.setX(0);
         downBar.setX(0);
-        offset = 0.5f*parameters.get(paramPos).distance-50;
+        //offset = 0.5f*parameters.get(paramPos).distance-50;
         upBar.setY(0.5f*(screenHeight+parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
         downBar.setY(0.5f*(screenHeight-parameters.get(paramPos).distance-parameters.get(paramPos).width)+offset);
 
